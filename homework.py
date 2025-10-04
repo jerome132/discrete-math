@@ -1,4 +1,4 @@
-def matrixout(mx, size):
+def matrixout(mx, size):
     print("┌" + "        " * size + "┐")
     for i in range(size):
         print("|", end=" ")
@@ -138,6 +138,14 @@ def main():
 
     if inv2:
         product = multiply_matrix(A, inv2)
+
+        for i in range(n):
+            for j in range(n):
+                if abs(product[i][j]) < 0.000001:
+                    product[i][j] = 0.0
+                else:
+                    product[i][j] = round(product[i][j], 3)
+                    
         print("\nA × A⁻¹ 결과")
         matrixout(product, n)
 
