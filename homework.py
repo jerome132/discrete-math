@@ -1,4 +1,4 @@
-def matrixout(mx, size):
+def matrixout(mx, size):
     print("┌" + "        " * size + "┐")
     for i in range(size):
         print("|", end=" ")
@@ -67,18 +67,26 @@ def inverse_by_gauss_jordan(A):
         B.append(row)
 
     for i in range(n):
-        pivot = B[i][i]
-        if pivot == 0:
-            print("이 행렬은 역행렬이 존재하지 않습니다.")
-            return 0
+        # 피벗이 0인 경우, 아래 행 중 0이 아닌 값이 있는 행과 교환
+        if B[i][i] == 0:
+            for j in range(i + 1, n):
+                if B[j][i] != 0:
+                    B[i], B[j] = B[j], B[i]
+                    break
+            else:
+                print("이 행렬은 역행렬이 존재하지 않습니다.")
+                return 0
 
-        for k in range(2*n):
-            B[i][k] = B[i][k] / pivot
+        # 현재 행의 기준값으로 나누기
+        a = B[i][i]
+        for k in range(2 * n):
+            B[i][k] = B[i][k] / a
 
+        # 다른 행의 해당 열을 0으로 만들기
         for j in range(n):
             if j != i:
                 factor = B[j][i]
-                for k in range(2*n):
+                for k in range(2 * n):
                     B[j][k] = B[j][k] - factor * B[i][k]
 
     inverse = []
