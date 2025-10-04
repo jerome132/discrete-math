@@ -67,13 +67,13 @@ def inverse_by_gauss_jordan(A):
         B.append(row)
 
     for i in range(n):
-        a = B[i][i]
-        if a == 0:
+        pivot = B[i][i]
+        if pivot == 0:
             print("이 행렬은 역행렬이 존재하지 않습니다.")
             return 0
 
         for k in range(2*n):
-            B[i][k] = B[i][k] / a
+            B[i][k] = B[i][k] / pivot
 
         for j in range(n):
             if j != i:
@@ -130,14 +130,6 @@ def main():
 
     if inv2:
         product = multiply_matrix(A, inv2)
-        for i in range(n):
-            for j in range(n):
-                # 아주 작은 값은 0으로, 나머지는 소수점 3자리까지만 반올림
-                if abs(product[i][j]) < 0.000001:
-                    product[i][j] = 0.0
-                else:
-                    product[i][j] = round(product[i][j], 3)
-
         print("\nA × A⁻¹ 결과")
         matrixout(product, n)
 
@@ -150,10 +142,8 @@ def main():
                 if abs(product[i][j] - expected) > 0.000001:
                     identity = 0
         if identity:
-            print("본 행렬과 역행렬의 곱이 단위행렬임")
+            print("본 행렬과 역행렬의 곱이 단위행렬입니다.")
         else:
-            print("본 행렬과 역행렬의 곱이 단위행렬이 아님")
-
+            print("본 행렬과 역행렬의 곱이 단위행렬이 아닙니다.")
 
 main()
-
